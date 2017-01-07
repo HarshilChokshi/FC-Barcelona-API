@@ -3,7 +3,7 @@ const ObjectID = require('mongodb').ObjectID;
 const bodyParser = require('body-parser');
 
 const mongoose = require('./../database/mongoose.js').mongoose;
-const Player = require('./../database/models/player.js');
+const Player = require('./../database/models/player.js').Player;
 const fillPlayers = require('./../database/initialize_database/fill_players.js')
 
 var app = express();
@@ -18,7 +18,7 @@ app.get('/players', (req, res) => {
   Player.find().then((players) => {
     res.send({
       status: 200,
-      playersCount: players.length;
+      playersCount: players.length,
       players: players
     });
   }, (err) => {
