@@ -20,7 +20,7 @@ var Player = mongoose.model('Player', {
     required: true,
     minlength: 1,
     trim: true
-  }
+  },
 
   age: {
     type: Number,
@@ -33,6 +33,18 @@ var Player = mongoose.model('Player', {
     required: true,
     minlength: 5,
     trim: true
+  },
+
+  weight: {
+    type: Number,
+    required: true,
+    min: 40
+  },
+
+  height: {
+    type: Number,
+    required: true,
+    min: 100
   },
 
   shirtNumber: {
@@ -58,6 +70,13 @@ var Player = mongoose.model('Player', {
     type: String,
     required: true,
     minlength: 20,
+    trim: true
+  },
+
+  imageURL: {
+    type: String,
+    required: true,
+    minlength: 1,
     trim: true
   }
 });
