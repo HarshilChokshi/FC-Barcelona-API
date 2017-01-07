@@ -6,8 +6,8 @@ const mongoose = require('./../database/mongoose.js').mongoose;
 const Player = require('./../database/models/player.js');
 
 var app = express();
-var port = 3000;
+var port = process.env.PORT || 3000;
 
-app.listen(3000,() => {
+app.listen(port,() => {
   console.log(`Server started up on port: ${port}`);
 });
