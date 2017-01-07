@@ -64,7 +64,7 @@ var Player = mongoose.model('Player', {
     type: Number,
     required: true,
     min: 50
-  }
+  },
 
   description: {
     type: String,
