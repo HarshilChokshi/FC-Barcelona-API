@@ -18,7 +18,6 @@ app.get('/players', (req, res) => {
   Player.find().then((players) => {
     res.send({
       status: 200,
-      playersCount: players.length,
       players: players
     });
   }, (err) => {
