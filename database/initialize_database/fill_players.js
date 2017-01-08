@@ -164,7 +164,7 @@ Alba represented Spain at the 2014 World Cup and two European Championships, hav
     imageURL: 'http://s.weltsport.net/bilder/spieler/gross/125417.jpg'
   });
 
-  var Mascherano = new Player({
+  var mascherano = new Player({
     fullName: 'Javier Alejandro Mascherano',
     popularName: 'mascherano',
     nationality: 'Argentina',
