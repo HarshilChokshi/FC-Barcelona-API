@@ -14,6 +14,11 @@ var port = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
 
+app.use('/players/:name', (req, res, next) => {
+  req.params.name = req.params.name.toLowerCase();
+  next();
+});
+
 app.get('/players', (req, res) => {
   Player.find().then((players) => {
     res.send({
@@ -33,20 +38,40 @@ app.get('/players', (req, res) => {
 app.get('/players/:name', (req, res) => {
   var playerName = req.params.name;
 
-  res.send({
-    name: playerName
+  Player.findOne({popularName: playerName}).then((player) => {
+    if(!player)
+    {
+      res.status(404).send({
+        status: 404,
+        errorMessage: 'Could not find specified player in database',
+        errorDetail: 'No player in the databse matches with the name you provided. Please make sure you are passing in the player\'s popular name as the argument'
+      });
+
+      return;
+    }
+    res.send({
+      status: 200,
+      player: player
+    });
+  },(err) => {
+    res.status(400).send({
+      status: 400,
+      errorMessage: 'Unable to return data',
+      errorDetail: `Errro: ${err}`
+    });
   });
 });
 
-app.delete('/players/:id', (req, res) => {
-  var id = req.params.id;
-
-  Player.findByIdAndRemove(id).then((doc) => {
-    res.send(doc);
-  }, (err) => {
-    res.send(err);
-  });
-});
+//Use this route to delete duplicates in players collection
+// app.delete('/players/:id', (req, res) => {
+//   var id = req.params.id;
+//
+//   Player.findByIdAndRemove(id).then((doc) => {
+//     res.send(doc);
+//   }, (err) => {
+//     res.send(err);
+//   });
+// });
 
 app.listen(port,() => {
   console.log(`Server started up on port: ${port}`);
