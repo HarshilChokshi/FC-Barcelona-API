@@ -30,6 +30,14 @@ app.get('/players', (req, res) => {
   } );
 });
 
+app.get('/players/:name', (req, res) => {
+  var playerName = req.params.name;
+
+  res.send({
+    name: playerName
+  });
+});
+
 app.delete('/players/:id', (req, res) => {
   var id = req.params.id;
 
