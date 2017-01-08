@@ -10,7 +10,7 @@ var app = express();
 var port = process.env.PORT || 3000;
 
 
-fillPlayers.addPlayers();
+//fillPlayers.addPlayers();
 
 app.use(bodyParser.json());
 
