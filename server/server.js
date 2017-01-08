@@ -10,7 +10,7 @@ var app = express();
 var port = process.env.PORT || 3000;
 
 
-fillPlayers.addPlayers();
+//fillPlayers.addPlayers();
 
 app.use(bodyParser.json());
 
@@ -28,6 +28,16 @@ app.get('/players', (req, res) => {
       errorDetail: `Error: ${err}`
     });
   } );
+});
+
+app.delete('/players/:id', (req, res) => {
+  var id = req.params.id;
+
+  Player.findByIdAndRemove(id).then((doc) => {
+    res.send(doc);
+  }, (err) => {
+    res.send(err);
+  });
 });
 
 app.listen(port,() => {
