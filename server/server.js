@@ -36,7 +36,7 @@ app.get('/players', (req, res) => {
 });
 
 app.get('/players/:name', (req, res) => {
-  var playerName = req.params.name;
+  var playerName = req.params.name.toLowerCase();
 
   Player.findOne({popularName: playerName}).then((player) => {
     if(!player)
