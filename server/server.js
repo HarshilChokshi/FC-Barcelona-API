@@ -9,8 +9,8 @@ const fillPlayers = require('./../database/initialize_database/fill_players.js')
 var app = express();
 var port = process.env.PORT || 3000;
 
-
-//fillPlayers.addPlayers();
+//Add players
+fillPlayers.addPlayers();
 
 app.use(bodyParser.json());
 
