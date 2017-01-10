@@ -84,7 +84,7 @@ app.get('/results', (req, res) => {
 });
 
 app.get('/results/:competition', (req, res) => {
-  var competition = req.param.competition.toLowerCase();
+  var competition = req.params.competition.toLowerCase();
 
   Game.find({competition: `${competition}`}).then((Games) => {
     if(!Games)
@@ -101,7 +101,7 @@ app.get('/results/:competition', (req, res) => {
       resultsCount: Games.length,
       results: Games
     });
-    
+
   }, (err) => {
     res.status(400).send({
       status: 400,
