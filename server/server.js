@@ -5,8 +5,10 @@ const bodyParser = require('body-parser');
 const mongoose = require('./../database/mongoose.js').mongoose;
 const Player = require('./../database/models/player.js').Player;
 const Game = require('./../database/models/games.js').Game;
+const General = require('./../database/models/general.js').General;
 const fillPlayers = require('./../database/initialize_database/fill_players.js');
 const fillGames = require('./../database/initialize_database/fill_results.js');
+const fillGeneral = require('./../database/initialize_database/fill_general.js');
 
 var app = express();
 var port = process.env.PORT || 3000;
@@ -17,12 +19,10 @@ var port = process.env.PORT || 3000;
 //Add games
 //fillGames.addResults();
 
-app.use(bodyParser.json());
+//Add general info
+fillGeneral.addGeneral();
 
-app.use('/players/:name', (req, res, next) => {
-  req.params.name = req.params.name.toLowerCase();
-  next();
-});
+app.use(bodyParser.json());
 
 app.get('/players', (req, res) => {
   Player.find().then((players) => {
@@ -109,6 +109,22 @@ app.get('/results/:competition', (req, res) => {
       errorDetail: `Error: ${err}`
     });
   });
+});
+
+app.get('/general', (req, res) => {
+  General.find().then((doc) => {
+    res.send({
+      status: 200,
+      clubInfo: doc
+    });
+  }, (err) => {
+    res.status(400).send({
+      status: 400,
+      errorMessage: 'Unable to retrieve general information',
+      errorDetail: `Error: ${err}`
+    });
+  });
+
 });
 
 //Use this route to delete duplicates in players collection
